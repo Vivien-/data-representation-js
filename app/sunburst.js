@@ -86,14 +86,22 @@ define(function (require) {
 
     return {
         drawSunburst: function (model) {
-            drawArcs(model.current, 0, 0, 360);
-            addContext(model);
+            if(typeof model !== 'undefined') {
+                drawArcs(model.current, 0, 0, 360);
+                addContext(model);
+            } else {
+                console.debug("The given model is null");
+            }
         },
         getArcs: function() {
             return arcs;
         },
         deleteArcs: function() {
             arcs = [];
+        },
+        updateSunburst: function(arcHash) {
+            //TODO: draw sunburst with new arc as root
+
         }
     };
 });

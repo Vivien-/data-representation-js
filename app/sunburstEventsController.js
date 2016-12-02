@@ -40,7 +40,7 @@ define(function (require) {
         }
 
         for (var i = 0; i < arcs.length; i++) {
-            // define one arc
+            // define one arc (set it in context)
             defineArc(arcs[i]);
 
             // test that one arc
@@ -51,40 +51,15 @@ define(function (require) {
         }
     }
 
-    var nmodel = {
-        "current": {
-            "path": "/hdfs",
-            "size": 100,
-            "hash": 1,
-            "children": [{
-                "path": "/hdfs/olebreton",
-                "size": 100,
-                "hash": 2,
-                "children":[{
-                    "path": "/hdfs/olebreton/1",
-                    "size": 33,
-                    "hash": 5
-                }, {
-                    "path": "/hdfs/olebreton/1",
-                    "size": 33,
-                    "hash": 6
-                }, {
-                    "path": "/hdfs/olebreton/1",
-                    "size": 34,
-                    "hash": 7
-                }]
-            }]
-        }
-    }
-
     var handleMouseClick = function(e) {
         var arcs = sunburst.getArcs();
         var mouseX = parseInt(e.clientX - offsetX);
         var mouseY = parseInt(e.clientY - offsetY);
         var clickedArc = getSelectedArc(mouseX, mouseY, arcs);
+
         if(typeof clickedArc !== 'undefined') {
             canvasUtils.clearSunburst();
-            sunburst.drawSunburst(nmodel);
+            sunburst.updateSunburst(clickedArc.hash);
             sunburst.deleteArcs();
         }
     }
